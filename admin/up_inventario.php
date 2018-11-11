@@ -66,7 +66,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		echo alerta('El producto no ha sido actualizado','editar_producto.php?clave='.$clave.'');
 	}
 	
-	
 }else{
 	echo alerta('utiliza el formulario','editar_producto.php?clave='.$clave.'');
 

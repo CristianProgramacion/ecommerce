@@ -4,7 +4,7 @@ include '../extend/alertas.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	// sha1 sirva para encriptar / rand numeros aleatorios
-	$clave =sha1(rand(0000,9999).rand(00,99)); 
+	$clave =htmlentities($_POST['clave']); ; 
 
 
 	//htmlentities limpiar las variables de sintaxis extrañas (sql injection)
@@ -46,29 +46,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 	}else{
-		$copia = 'foto_producto/producto.png';
+		$copia = htmlentities($_POST['anterior']);
 	}
 
-	$ins = $con->prepare("INSERT INTO inventario VALUES (DEFAULT, :clave,:producto, :cantidad, :precio, :categoria, :descripcion, :foto)");
-    $ins->bindparam(':clave', $clave);
-    $ins->bindparam(':producto', $producto);
-    $ins->bindparam(':cantidad', $cantidad);
-    $ins->bindparam(':precio', $precio);
-    $ins->bindparam(':categoria', $categoria);
-    $ins->bindparam(':descripcion', $descripcion);
-    $ins->bindparam(':foto', $copia);
+	$up = $con->prepare("UPDATE inventario SET producto=:producto,cantidad=:cantidad,precio = :precio, categoria=:categoria, foto = :foto, descripcion= :descripcion WHERE clave=:clave");
+    $up->bindparam(':clave', $clave);
+    $up->bindparam(':producto', $producto);
+    $up->bindparam(':cantidad', $cantidad);
+    $up->bindparam(':precio', $precio);
+    $up->bindparam(':categoria', $categoria);
+    $up->bindparam(':descripcion', $descripcion);
+    $up->bindparam(':foto', $copia);
      
-	if ($ins->execute()){
-		echo alerta('El producto fue guardado','inventario.php');
-		$ins = null;
+	if ($up->execute()){
+		echo alerta('El producto ha sido actualizado','editar_producto.php?clave='.$clave.'');
+		$up = null;
 		$con = null;
 	}else{
-		echo alerta('El producto no pudo ser guardado','inventario.php');
+		echo alerta('El producto no ha sido actualizado','editar_producto.php?clave='.$clave.'');
 	}
 	
 	
 }else{
-	echo alerta('utiliza el formulario','inventario.php');
+	echo alerta('utiliza el formulario','editar_producto.php?clave='.$clave.'');
 
 }
 

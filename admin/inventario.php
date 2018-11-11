@@ -49,8 +49,7 @@
 						<thead>
 							<th>Foto</th>
 							<th>Producto</th>
-							<th>Precio</th>
-							<th>Categoria</th>
+							<th>Cantidad</th>
 							<th>Precio</th>
 							<th>Categoria</th>
 							<th>Desc.</th>
@@ -68,10 +67,10 @@
 								  		<td><?php echo  $f['producto']; ?></td>
 								  		<td><?php echo  $f['cantidad']; ?></td>
 								  		<td><?php echo "S/.".number_format( $f['precio'],2) ?></td>
-								  		<td><?php echo  $f['categoria']; ?></td>
-								  		<td><?php echo  substr($f['descripcion'], 0,100) ?>...</td>
-								  		<td></td>
-								  		<td></td>
+								  		<td><?php echo  $f['categoria'] ?></td>
+								  		<td><?php echo  substr($f['descripcion'],0,100) ?></td>
+								  		<td><a href="agregar_imagenes.php?clave=<?php echo $f['clave'] ?>" class="btn btn-outline-sucess btn-sm"><span class="material-icons">add</span></a></td>
+								  		<td><a href="editar_producto.php?clave=<?php echo $f['clave'] ?>" class="btn btn-outline-primary btn-sm"><span class="material-icons">edit</span></a></td>
 								  		<td></td>
 								  	</tr>
 								  	<?php 
